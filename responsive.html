@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Devx Fitness — Get Fit & Feel Great</title>
+  <meta name="description" content="Modern fitness club with PT, group classes, and premium equipment. Join Devx‑Fitness today." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%2300d084'/%3E%3Cpath d='M25 60h50v10H25zM35 30h30v10H35z' fill='white'/%3E%3C/svg%3E" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { colors: { primary: { DEFAULT: '#22c55e', 600: '#16a34a' }, base: { 900: '#0b0f14' } }, boxShadow: { glow: '0 0 0 2px rgba(34,197,94,0.2), 0 10px 30px rgba(0,0,0,0.35)' }, keyframes: { fadeUp: { '0%': {opacity:0, transform:'translateY(24px)'}, '100%': {opacity:1, transform:'translateY(0)'} }, scaleIn: { '0%': {opacity:0, transform:'scale(.95)'}, '100%': {opacity:1, transform:'scale(1)'} }, float: { '0%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-6px)' }, '100%': { transform:'translateY(0)' } } }, animation: { fadeUp: 'fadeUp .7s ease-out forwards', scaleIn: 'scaleIn .6s ease-out forwards', float: 'float 6s ease-in-out infinite' } } } }
+  </script>
+  <style>
+    /* Responsive base font: smaller on phones, larger on desktop */
+    html { font-size: clamp(15px, 2.6vw, 18px); scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+
+    /* Ensure images never cause horizontal overflow */
+    img { max-width: 100%; height: auto; display: block; }
+
+    .glass { backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(15,23,42,.75), rgba(2,6,23,.6)); }
+    .section { scroll-margin-top: 96px; }
+    [data-animate] { opacity: 0; transform: translateY(16px); }
+    [data-animate].in { opacity: 1; transform: none; transition: all .7s cubic-bezier(.2,.65,.3,1); }
+    .card { transition: transform .35s ease, box-shadow .35s ease; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.35); }
+
+    /* table and nav sizing */
+    table { font-size: 0.95rem; }
+    nav a { font-size: 1rem; }
+
+    /* badge responsive adjustments */
+    .open-badge { font-weight: 600; }
+    @media (max-width: 640px) {
+      .open-badge { right: 0.6rem !important; top: 0.6rem !important; padding: 0.35rem 0.6rem !important; font-size: .85rem !important; gap: .4rem; }
+      .section { scroll-margin-top: 72px; }
+      /* slightly reduce big paddings on mobile */
+      .py-24 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+      .p-6 { padding: 0.9rem !important; }
+    }
+  </style>
+</head>
+<body class="bg-base-900 text-slate-300">
+
+  <!-- NAVBAR -->
+  <header class="fixed inset-x-0 top-0 z-50">
+    <nav class="mx-auto max-w-7xl px-3 sm:px-4 lg:px-8">
+      <div class="mt-3 flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900/60 glass px-3 sm:px-4 py-2 sm:py-3 shadow-glow">
+        <a href="#home" class="group inline-flex items-center gap-2 font-semibold text-white">
+          <span class="grid h-10 w-10 place-items-center rounded-full bg-primary text-slate-900">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M21 10h-1V7a1 1 0 10-2 0v3h-2V7a1 1 0 10-2 0v3H10V7a1 1 0 10-2 0v3H6V7a1 1 0 10-2 0v3H3a1 1 0 100 2h1v3a1 1 0 102 0v-3h2v3a1 1 0 102 0v-3h4v3a1 1 0 102 0v-3h2v3a1 1 0 102 0v-3h1a1 1 0 100-2z"/></svg>
+          </span>
+          <span class="text-lg tracking-tight">Devx‑Fitness</span>
+        </a>
+        <ul class="hidden items-center gap-6 md:flex">
+          <li><a href="#about" class="nav-link hover:text-white">About</a></li>
+          <li><a href="#services" class="nav-link hover:text-white">Services</a></li>
+          <li><a href="#classes" class="nav-link hover:text-white">Classes</a></li>
+          <li><a href="#pricing" class="nav-link hover:text-white">Pricing</a></li>
+          <li><a href="#contact" class="nav-link hover:text-white">Contact</a></li>
+        </ul>
+        <div class="flex items-center gap-3">
+          <a class="js-custom-link hidden rounded-xl bg-primary px-3 py-2 font-medium text-slate-900 shadow-glow transition hover:bg-primary/90 md:inline-flex" href="#">Enroll Now</a>
+          <button class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/80 hover:text-white" id="menuBtn" aria-label="Open menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- mobile sheet (hidden on md+) -->
+    <div id="mobileMenu" class="hidden md:hidden absolute inset-x-4 top-20 rounded-2xl border border-white/10 bg-slate-900/95 p-4">
+      <a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#about">About</a>
+      <a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#services">Services</a>
+      <a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#classes">Classes</a>
+      <a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#pricing">Pricing</a>
+      <a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#contact">Contact</a>
+      <a class="js-custom-link mt-2 block rounded-xl bg-primary px-3 py-2 text-center font-semibold text-slate-900" href="#">Enroll Now</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="section py-16 sm:py-24 relative isolate overflow-hidden pt-36">
+    <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-8 lg:grid-cols-2">
+        <div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Get fit & feel great
+            <span class="block bg-gradient-to-r from-primary to-emerald-300 bg-clip-text text-transparent">with Devx‑Fitness</span>
+          </h1>
+          <p class="mt-4 max-w-xl text-lg text-slate-300">Hardcore strength area, curved treadmills, boxing studio, TRX and spinning — guided by coaches who actually care.</p>
+          <div class="mt-6 sm:mt-8 flex flex-wrap items-center gap-3">
+            <a class="js-custom-link group inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-base font-semibold text-slate-900 shadow-glow transition hover:bg-primary/90" href="#">
+              Join now
+              <svg class="h-5 w-5 transition group-hover:translate-x-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 5l7 7-7 7M5 12h14"/></svg>
+            </a>
+            <a href="#about" class="inline-flex items-center gap-2 rounded-xl border border-white/10 px-5 py-3 font-semibold text-white/90 hover:bg-white/5 text-base">Explore more</a>
+          </div>
+          <dl class="mt-8 sm:mt-10 grid grid-cols-3 gap-4 text-center sm:max-w-md">
+            <div class="rounded-xl border border-white/10 p-3" data-animate>
+              <dt class="text-xs uppercase text-slate-400">Members</dt>
+              <dd class="mt-1 text-2xl md:text-3xl font-bold text-white counter" data-target="1200">0</dd>
+            </div>
+            <div class="rounded-xl border border-white/10 p-3" data-animate>
+              <dt class="text-xs uppercase text-slate-400">Classes / week</dt>
+              <dd class="mt-1 text-2xl md:text-3xl font-bold text-white counter" data-target="48">0</dd>
+            </div>
+            <div class="rounded-xl border border-white/10 p-3" data-animate>
+              <dt class="text-xs uppercase text-slate-400">PT Coaches</dt>
+              <dd class="mt-1 text-2xl md:text-3xl font-bold text-white counter" data-target="12">0</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="relative" data-animate>
+          <div class="absolute inset-0 md:-inset-4 -z-10 rounded-3xl bg-gradient-to-tr from-primary/20 to-emerald-400/10 blur-2xl"></div>
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1400&auto=format&fit=crop" alt="Athlete training" class="w-full h-auto rounded-3xl shadow-2xl animate-scaleIn object-cover"/>
+          <span class="absolute right-4 top-4 sm:right-6 sm:top-6 inline-flex open-badge items-center gap-2 rounded-full bg-slate-900/85 px-3 py-1 text-sm sm:text-base">
+            <span class="h-3 w-3 rounded-full bg-primary"></span>
+            <span class="text-slate-100">Open 6am–11pm</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section py-16 sm:py-24 relative">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-10 md:grid-cols-2">
+        <img class="rounded-3xl shadow-2xl w-full h-auto" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1400&auto=format&fit=crop" alt="About Devx Fitness" data-animate>
+        <div data-animate>
+          <h2 class="text-3xl md:text-4xl font-bold text-white">Not just a gym — your performance lab.</h2>
+          <p class="mt-4 text-lg text-slate-300">Workouts are personalized to your goals. Learn smart progressions, get stronger safely, and build habits that stick.</p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="card rounded-2xl border border-white/10 p-5">
+              <h3 class="font-semibold text-white">Premium Equipment</h3>
+              <p class="mt-1 text-sm text-slate-400">Hammer Strength, Eleiko, Rogue — maintained weekly.</p>
+            </div>
+            <div class="card rounded-2xl border border-white/10 p-5">
+              <h3 class="font-semibold text-white">Coach‑Led Programs</h3>
+              <p class="mt-1 text-sm text-slate-400">PT, small‑group, and specialty clinics.</p>
+            </div>
+            <div class="card rounded-2xl border border-white/10 p-5">
+              <h3 class="font-semibold text-white">Recovery Zone</h3>
+              <p class="mt-1 text-sm text-slate-400">Ice bath, sauna, mobility tools.</p>
+            </div>
+            <div class="card rounded-2xl border border-white/10 p-5">
+              <h3 class="font-semibold text-white">Flexible Hours</h3>
+              <p class="mt-1 text-sm text-slate-400">Weekdays 6am–11pm • Weekends 7am–10pm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / GALLERY -->
+  <section id="services" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-10 text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Start your membership experience now</h2>
+        <p class="mt-2 text-lg text-slate-300">1‑on‑1 coaching, curated classes, and spaces built to move.</p>
+      </div>
+      <div class="grid grid-cols-12 gap-3">
+        <img class="col-span-6 h-56 w-full rounded-2xl object-cover md:col-span-3" src="https://images.unsplash.com/photo-1521805103424-d8f8430e8933?q=80&w=1200&auto=format&fit=crop" alt="gym1" data-animate>
+        <img class="col-span-6 h-56 w-full rounded-2xl object-cover md:col-span-3" src="https://images.unsplash.com/photo-1554284126-aa88f22d8b74?q=80&w=1200&auto=format&fit=crop" alt="gym2" data-animate>
+        <img class="col-span-12 h-64 w-full rounded-2xl object-cover md:col-span-6" src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=1400&auto=format&fit=crop" alt="gym3" data-animate>
+        <img class="col-span-12 h-64 w-full rounded-2xl object-cover md:col-span-6" src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=1400&auto=format&fit=crop" alt="gym4" data-animate>
+        <img class="col-span-6 h-56 w-full rounded-2xl object-cover md:col-span-3" src="https://images.unsplash.com/photo-1672344048213-76b6e77304bd?q=80&w=1200&auto=format&fit=crop" alt="gym5" data-animate>
+        <img class="col-span-6 h-56 w-full rounded-2xl object-cover md:col-span-3" src="https://images.unsplash.com/photo-1574340328797-4d35191976e8?q=80&w=1200&auto=format&fit=crop" alt="gym6" data-animate>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASSES: add select and per-card select buttons -->
+  <section id="classes" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Our Classes</h2>
+        <p class="mt-2 text-lg text-slate-300">Whatever your fitness goals, our instructors will help you reach them.</p>
+      </div>
+
+      <div class="mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <label class="text-sm text-slate-400">Choose a class:</label>
+          <select id="classSelect" class="rounded-xl border border-white/10 bg-slate-900/60 px-3 py-2 text-white outline-none">
+            <option value="">-- Select class --</option>
+            <option value="MAXFIT">MAXFIT</option>
+            <option value="SPINFIT">SPINFIT</option>
+            <option value="POWERFIT">POWERFIT</option>
+            <option value="YOGA">YOGA</option>
+          </select>
+          <button id="bookSelectedClass" class="rounded-xl bg-primary px-4 py-2 font-semibold text-slate-900">Book selected</button>
+        </div>
+        <div class="text-sm text-slate-400">Tip: Click a card's <em>Select</em> button to prefill the selector.</div>
+      </div>
+
+      <ul class="mt-10 grid gap-3 sm:grid-cols-2">
+        <li class="card rounded-2xl border border-white/10 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4" data-animate>
+          <div class="flex items-center gap-4">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-primary/15 text-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zm1 5h4v2h-4V8zM7 8h4v2H7V8zm0 4h10v2H7v-2zm0 4h6v2H7v-2z"/></svg></span>
+            <div>
+              <h3 class="font-semibold text-white text-lg">MAXFIT</h3>
+              <p class="text-sm text-slate-400">Metabolic conditioning for strength + endurance.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="select-class-btn rounded-lg border border-white/10 px-3 py-2 text-sm" data-class="MAXFIT">Select</button>
+            <button class="js-custom-link rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-slate-900" data-class="MAXFIT">Book</button>
+          </div>
+        </li>
+
+        <li class="card rounded-2xl border border-white/10 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4" data-animate>
+          <div class="flex items-center gap-4">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-primary/15 text-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z"/></svg></span>
+            <div>
+              <h3 class="font-semibold text-white text-lg">SPINFIT</h3>
+              <p class="text-sm text-slate-400">High‑energy rides with power tracking.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="select-class-btn rounded-lg border border-white/10 px-3 py-2 text-sm" data-class="SPINFIT">Select</button>
+            <button class="js-custom-link rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-slate-900" data-class="SPINFIT">Book</button>
+          </div>
+        </li>
+
+        <li class="card rounded-2xl border border-white/10 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4" data-animate>
+          <div class="flex items-center gap-4">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-primary/15 text-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M5 3h6v6H5V3zm8 0h6v6h-6V3zM5 11h6v10H5V11zm8 6h6v4h-6v-4z"/></svg></span>
+            <div>
+              <h3 class="font-semibold text-white text-lg">POWERFIT</h3>
+              <p class="text-sm text-slate-400">Barbell strength and technique.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="select-class-btn rounded-lg border border-white/10 px-3 py-2 text-sm" data-class="POWERFIT">Select</button>
+            <button class="js-custom-link rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-slate-900" data-class="POWERFIT">Book</button>
+          </div>
+        </li>
+
+        <li class="card rounded-2xl border border-white/10 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4" data-animate>
+          <div class="flex items-center gap-4">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-primary/15 text-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M12 4a8 8 0 100 16A8 8 0 0012 4zm1 3h2v2h-2V7zM9 7h2v2H9V7zm0 4h6v2H9v-2zm0 4h4v2H9v-2z"/></svg></span>
+            <div>
+              <h3 class="font-semibold text-white text-lg">YOGA</h3>
+              <p class="text-sm text-slate-400">Mobility, breath, and calm strength.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="select-class-btn rounded-lg border border-white/10 px-3 py-2 text-sm" data-class="YOGA">Select</button>
+            <button class="js-custom-link rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-slate-900" data-class="YOGA">Book</button>
+          </div>
+        </li>
+      </ul>
+
+      <div class="mt-10 text-center"><button id="bookClassCTA" class="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-lg font-semibold text-slate-900 shadow-glow hover:bg-primary/90">Select a class</button></div>
+    </div>
+  </section>
+
+  <!-- PRICING (re-added and made legible) -->
+  <section id="pricing" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Pricing</h2>
+        <p class="mt-2 text-lg text-slate-300">Transparent, flexible, and commitment‑free.</p>
+        <div class="mt-6 inline-flex overflow-hidden rounded-xl border border-primary/50">
+          <button id="toggleMonthly" class="bg-primary px-4 py-2 text-sm font-semibold text-slate-900">Monthly</button>
+          <button id="toggleYearly" class="px-4 py-2 text-sm text-white/80 hover:bg-white/5">Annually</button>
+        </div>
+      </div>
+
+      <div class="mt-8 md:mt-10 grid gap-6 md:grid-cols-3">
+        <div class="card rounded-2xl border border-white/10 p-6 text-center" data-animate>
+          <h3 class="text-sm tracking-wide text-slate-400">START</h3>
+          <p class="mt-2 text-3xl md:text-5xl font-extrabold text-white"><span class="price" data-monthly="Free" data-yearly="Free">Free</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-400">
+            <li>Gym floor access — weekdays 10–4</li>
+            <li>Intro class</li>
+            <li>Locker room & showers</li>
+          </ul>
+          <div class="mt-6 flex gap-3 justify-center">
+            <button class="select-plan-btn rounded-lg border border-white/10 px-4 py-2 text-sm" data-plan="START">Select plan</button>
+            <button class="js-custom-link rounded-lg px-4 py-2 text-sm bg-primary font-semibold text-slate-900" data-plan="START">Get started</button>
+          </div>
+        </div>
+
+        <div class="card relative rounded-2xl border border-primary/50 p-6 text-center" data-animate>
+          <span class="absolute right-4 top-4 rounded-full bg-primary px-2 py-1 text-xs font-bold text-slate-900">POPULAR</span>
+          <h3 class="text-sm tracking-wide text-slate-400">PRO</h3>
+          <p class="mt-2 text-3xl md:text-5xl font-extrabold text-white"><span class="price" data-monthly="$38" data-yearly="$380">$38</span><span class="text-sm font-normal text-slate-400">/mo</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-400">
+            <li>Unlimited gym access</li>
+            <li>All classes included</li>
+            <li>1 PT session / month</li>
+          </ul>
+          <div class="mt-6 flex gap-3 justify-center">
+            <button class="select-plan-btn rounded-lg border border-white/10 px-4 py-2 text-sm" data-plan="PRO">Select plan</button>
+            <button class="js-custom-link rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-slate-900" data-plan="PRO">Choose Pro</button>
+          </div>
+        </div>
+
+        <div class="card rounded-2xl border border-white/10 p-6 text-center" data-animate>
+          <h3 class="text-sm tracking-wide text-slate-400">BUSINESS</h3>
+          <p class="mt-2 text-3xl md:text-5xl font-extrabold text-white"><span class="price" data-monthly="$56" data-yearly="$560">$56</span><span class="text-sm font-normal text-slate-400">/mo</span></p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-400">
+            <li>Everything in Pro</li>
+            <li>Dedicated coach</li>
+            <li>Recovery zone access</li>
+          </ul>
+          <div class="mt-6 flex gap-3 justify-center">
+            <button class="select-plan-btn rounded-lg border border-white/10 px-4 py-2 text-sm" data-plan="BUSINESS">Select plan</button>
+            <button class="js-custom-link rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold" data-plan="BUSINESS">Choose Business</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COACHES, SCHEDULE, FAQ, CONTACT, FOOTER -->
+  <section id="coaches" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Meet Our Coaches</h2>
+        <p class="mt-2 text-lg text-slate-300">Certified trainers who guide your progress.</p>
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="card rounded-2xl border border-white/10 p-6 text-center" data-animate>
+          <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=400&auto=format&fit=crop" class="mx-auto h-32 w-32 rounded-full object-cover" alt="coach1">
+          <h3 class="mt-4 font-semibold text-white">Sarah L.</h3>
+          <p class="text-sm text-slate-400">Strength & Conditioning</p>
+        </div>
+        <div class="card rounded-2xl border border-white/10 p-6 text-center" data-animate>
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=400&auto=format&fit=crop" class="mx-auto h-32 w-32 rounded-full object-cover" alt="coach2">
+          <h3 class="mt-4 font-semibold text-white">Daniel M.</h3>
+          <p class="text-sm text-slate-400">Functional Training & HIIT</p>
+        </div>
+        <div class="card rounded-2xl border border-white/10 p-6 text-center" data-animate>
+          <img src="https://images.unsplash.com/photo-1615109398623-88346a601842?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWFufGVufDB8fDB8fHww" class="mx-auto h-32 w-32 rounded-full object-cover" alt="coach3">
+          <h3 class="mt-4 font-semibold text-white">Emily R.</h3>
+          <p class="text-sm text-slate-400">Yoga & Mobility</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Weekly Schedule</h2>
+        <p class="mt-2 text-lg text-slate-300">Book a slot that fits your timetable. Use the modal to book instantly or view the inline calendar below.</p>
+      </div>
+      <div class="mt-6 overflow-x-auto" data-animate>
+        <table class="w-full text-left border border-white/10 rounded-xl overflow-hidden">
+          <thead class="bg-slate-900/60">
+            <tr class="text-slate-400 text-sm">
+              <th class="px-4 py-2">Day</th>
+              <th class="px-4 py-2">Class</th>
+              <th class="px-4 py-2">Time</th>
+              <th class="px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/10 text-sm">
+            <tr>
+              <td class="px-4 py-2">Monday</td>
+              <td class="px-4 py-2">MAXFIT</td>
+              <td class="px-4 py-2">6:30 pm</td>
+              <td class="px-4 py-2"><button onclick="openCalendlyModal('https://calendly.com/a14315943/fitness-collaboration')" class="rounded-lg bg-primary px-3 py-1 font-semibold text-slate-900">Book Now</button></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Tuesday</td>
+              <td class="px-4 py-2">SPINFIT</td>
+              <td class="px-4 py-2">7:00 pm</td>
+              <td class="px-4 py-2"><button onclick="openCalendlyModal('https://calendly.com/a14315943/fitness-collaboration')" class="rounded-lg bg-primary px-3 py-1 font-semibold text-slate-900">Book Now</button></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Wednesday</td>
+              <td class="px-4 py-2">POWERFIT</td>
+              <td class="px-4 py-2">6:30 pm</td>
+              <td class="px-4 py-2"><button onclick="openCalendlyModal('https://calendly.com/a14315943/fitness-collaboration')" class="rounded-lg bg-primary px-3 py-1 font-semibold text-slate-900">Book Now</button></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2">Friday</td>
+              <td class="px-4 py-2">YOGA</td>
+              <td class="px-4 py-2">5:00 pm</td>
+              <td class="px-4 py-2"><button onclick="openCalendlyModal('https://calendly.com/a14315943/fitness-collaboration')" class="rounded-lg bg-primary px-3 py-1 font-semibold text-slate-900">Book Now</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-6 flex items-center gap-3">
+        <button id="showInlineCal" class="rounded-xl border border-white/10 bg-slate-900/50 px-4 py-2 text-sm font-semibold">Show calendar</button>
+        <button id="hideInlineCal" class="rounded-xl border border-white/10 bg-slate-900/50 px-4 py-2 text-sm font-semibold hidden">Hide calendar</button>
+        <p class="text-sm text-slate-400 ml-4">Or open booking in WhatsApp using the green buttons across the site.</p>
+      </div>
+      <div id="inlineCalendly" class="mt-6 hidden rounded-xl border border-white/10 p-4 bg-slate-900/40">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/a14315943/fitness-collaboration" style="min-width:320px;height:650px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">FAQ</h2>
+        <p class="mt-2 text-lg text-slate-300">Answers to common questions.</p>
+      </div>
+      <div class="mt-10 space-y-4" data-animate>
+        <details class="rounded-xl border border-white/10 p-4">
+          <summary class="cursor-pointer font-semibold text-white">What are your opening hours?</summary>
+          <p class="mt-2 text-slate-400">We’re open Mon–Fri 6am–11pm, Sat–Sun 7am–10pm.</p>
+        </details>
+        <details class="rounded-xl border border-white/10 p-4">
+          <summary class="cursor-pointer font-semibold text-white">Do you offer trial classes?</summary>
+          <p class="mt-2 text-slate-400">Yes, your first group class is free!</p>
+        </details>
+        <details class="rounded-xl border border-white/10 p-4">
+          <summary class="cursor-pointer font-semibold text-white">Is there personal training available?</summary>
+          <p class="mt-2 text-slate-400">Yes, we have certified coaches for one‑on‑one training.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section py-16 sm:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center" data-animate>
+        <h2 class="text-3xl md:text-4xl font-bold text-white">Contact Us</h2>
+        <p class="mt-2 text-lg text-slate-300">We’re in Dipalpur — come say hi, or drop a message.</p>
+      </div>
+      <form id="contactForm" action="https://formspree.io/f/xpwjwzjv" method="POST" class="mt-10 grid gap-4 md:grid-cols-2" data-animate>
+        <div>
+          <label class="mb-1 block text-sm text-slate-400">Name</label>
+          <input required name="name" class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-3 py-2 text-white outline-none ring-primary/30 placeholder:text-slate-500 focus:ring-2" placeholder="Your name" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm text-slate-400">Email</label>
+          <input required type="email" name="email" class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-3 py-2 text-white outline-none ring-primary/30 placeholder:text-slate-500 focus:ring-2" placeholder="you@example.com" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="mb-1 block text-sm text-slate-400">Message</label>
+          <textarea required name="message" rows="5" class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-3 py-2 text-white outline-none ring-primary/30 placeholder:text-slate-500 focus:ring-2" placeholder="Tell us what you need"></textarea>
+        </div>
+        <div class="md:col-span-2">
+          <button class="w-full rounded-xl bg-primary px-6 py-3 text-lg font-semibold text-slate-900 shadow-glow hover:bg-primary/90" type="submit">Send message</button>
+        </div>
+      </form>
+      <div class="mt-6 text-center text-sm text-slate-400" data-animate>
+        <a class="text-primary" href="mailto:a14315943@email.com">a14315943@email.com</a> • City Dipalpur|Okara|Punjab|Pakistan.      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/10 py-10">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 sm:px-6 lg:flex-row lg:px-8">
+        <p class="text-sm text-slate-500">
+            © <span id="year"></span> Devx-Fitness. All rights reserved. 
+            • Created by <span class="text-sm text-slate-500">❤️</span> AWAIS RAJ
+        </p>
+      <ul class="flex items-center gap-4 text-sm">
+        <li><a href="#about" class="hover:text-white">About</a></li>
+        <li><a href="#classes" class="hover:text-white">Classes</a></li>
+        <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+        <li><a href="#contact" class="hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <script>
+    // configuration
+    const CUSTOM_LINK = 'https://wa.me/923488716240?text=Hi%20Devx‑Fitness%2C%20I%27d%20like%20to%20join!';
+
+    // helpers to build WhatsApp / fallback links with context
+    function buildCustomLink({ theClass, thePlan } = {}){
+      let url = CUSTOM_LINK;
+      const parts = [];
+      if (theClass) parts.push('Class: ' + theClass);
+      if (thePlan) parts.push('Plan: ' + thePlan);
+      const message = parts.length ? encodeURIComponent('Hi Devx-Fitness, I\'d like to book — ' + parts.join(' | ')) : encodeURIComponent('Hi Devx-Fitness, I\'d like to join!');
+      if (url.includes('wa.me') || url.includes('api.whatsapp.com')){
+        url += (url.includes('?') ? '&' : '?') + 'text=' + message;
+      } else {
+        // fallback: append as query params
+        url += (url.includes('?') ? '&' : '?') + 'class=' + encodeURIComponent(theClass || '') + '&plan=' + encodeURIComponent(thePlan || '');
+      }
+      return url;
+    }
+
+    // bind .js-custom-link to open with context if available
+    let selectedClass = '';
+    let selectedPlan = '';
+
+    function openCustom(targetClass, targetPlan){ window.open(buildCustomLink({ theClass: targetClass || selectedClass, thePlan: targetPlan || selectedPlan }), '_blank'); }
+
+    // generic binding for any .js-custom-link (buttons or links)
+    document.querySelectorAll('.js-custom-link').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetClass = el.dataset.class || '';
+        const targetPlan = el.dataset.plan || '';
+        openCustom(targetClass || selectedClass, targetPlan || selectedPlan);
+      });
+    });
+
+    // select-class buttons (cards)
+    document.querySelectorAll('.select-class-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const c = btn.dataset.class;
+        selectedClass = c;
+        const sel = document.getElementById('classSelect'); if(sel) sel.value = c;
+        // small visual feedback
+        btn.textContent = 'Selected'; setTimeout(()=> btn.textContent = 'Select', 1200);
+      });
+    });
+
+    // select-plan buttons
+    document.querySelectorAll('.select-plan-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedPlan = btn.dataset.plan;
+        btn.textContent = 'Selected'; setTimeout(()=> btn.textContent = 'Select plan', 1200);
+      });
+    });
+
+    // class selector controls
+    const classSelect = document.getElementById('classSelect');
+    if(classSelect){ classSelect.addEventListener('change', (e)=>{ selectedClass = e.target.value; }); }
+    document.getElementById('bookSelectedClass')?.addEventListener('click', ()=>{
+      if(!selectedClass) { alert('Please select a class first.'); return; }
+      // open WhatsApp or fallback with selected class
+      openCustom(selectedClass, '');
+    });
+
+    // CTA in classes section
+    document.getElementById('bookClassCTA')?.addEventListener('click', ()=>{
+      if(!selectedClass) { alert('Please select a class first (use the dropdown or Select buttons).'); return; }
+      openCustom(selectedClass, '');
+    });
+
+    // pricing toggle
+    const monthlyBtn = document.getElementById('toggleMonthly');
+    const yearlyBtn = document.getElementById('toggleYearly');
+    const prices = document.querySelectorAll('.price');
+    yearlyBtn?.addEventListener('click', () => { prices.forEach(p => p.textContent = p.dataset.yearly); monthlyBtn.classList.remove('bg-primary','text-slate-900'); yearlyBtn.classList.add('bg-primary','text-slate-900'); monthlyBtn.classList.add('text-white/80'); });
+    monthlyBtn?.addEventListener('click', () => { prices.forEach(p => p.textContent = p.dataset.monthly); yearlyBtn.classList.remove('bg-primary','text-slate-900'); monthlyBtn.classList.add('bg-primary','text-slate-900'); yearlyBtn.classList.add('text-white/80'); });
+
+    // Courteous Formspree UX (forms still post to Formspree endpoint)
+    const contactForm = document.getElementById('contactForm');
+    contactForm?.addEventListener('submit', (e)=>{
+      const btn = contactForm.querySelector('button[type="submit"]'); const old = btn.textContent; btn.textContent = 'Sending…'; btn.disabled = true;
+      setTimeout(()=>{ btn.textContent = 'Sent!'; setTimeout(()=>{ btn.textContent = old; btn.disabled = false; contactForm.reset(); }, 1700); }, 900);
+    });
+
+    // mobile menu
+    const menuBtn = document.getElementById('menuBtn'); const mobileMenu = document.getElementById('mobileMenu'); if(menuBtn) menuBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
+    mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> mobileMenu.classList.add('hidden')));
+
+    // reveal on view + counters
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }); }, { threshold: 0.15 });
+    document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+    const counters = document.querySelectorAll('.counter');
+    const counterIO = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(!entry.isIntersecting) return; const el = entry.target; counterIO.unobserve(el); const target = +el.dataset.target || 0; let n=0; const step = Math.max(1, Math.ceil(target/60)); const tick = ()=>{ n=Math.min(target, n+step); el.textContent = n.toLocaleString(); if(n<target) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }); }, { threshold: 0.6 });
+    counters.forEach(c=>counterIO.observe(c));
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Calendly helpers
+    window.openCalendlyModal = function(url){ try{ if(window.Calendly && typeof window.Calendly.initPopupWidget === 'function'){ Calendly.initPopupWidget({url: url}); } else { window.open(url, '_blank'); } } catch(e){ window.open(url, '_blank'); } }
+
+    // inline calendar toggle
+    const showBtn = document.getElementById('showInlineCal'); const hideBtn = document.getElementById('hideInlineCal'); const inline = document.getElementById('inlineCalendly');
+    showBtn?.addEventListener('click', ()=>{ inline.classList.remove('hidden'); showBtn.classList.add('hidden'); hideBtn.classList.remove('hidden'); setTimeout(()=> window.scrollTo({ top: inline.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }), 200); });
+    hideBtn?.addEventListener('click', ()=>{ inline.classList.add('hidden'); showBtn.classList.remove('hidden'); hideBtn.classList.add('hidden'); });
+
+    // nav active on scroll
+    const sections = ['home','about','services','classes','pricing','contact'].map(id => document.getElementById(id));
+    const navLinks = document.querySelectorAll('a.nav-link');
+    const linkMap = new Map(Array.from(navLinks).map(a => [a.getAttribute('href').replace('#',''), a]));
+    const onScroll = ()=>{ let current='home'; sections.forEach(sec=>{ if(!sec) return; const top = sec.getBoundingClientRect().top; if(top <= 120) current = sec.id; }); navLinks.forEach(a=>a.classList.remove('text-primary')); linkMap.get(current)?.classList.add('text-primary'); };
+    document.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  </script>
+</body>
+</html>
